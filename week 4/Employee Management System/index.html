@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: black
+        }
+
+        .container {
+            max-width: 30vw;
+            margin: 10vh auto;
+            padding: 20px;
+            height: 70vh;
+            background-color: plum;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10vh;
+            color: black;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            height: 8vh;
+            font-size: 20px;
+            background-color: white;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: black;
+            color: white;
+        }
+
+        #output {
+            margin-bottom: 20px;
+            font-size: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Employee Management System</h1>
+        <div id="output"></div>
+        <button onclick="increaseSalary(10)">Increase Salaries</button> <button
+        onclick="sortEmployeesByAge()">Sort Employees based on Age</button>
+        <button onclick="calculateAverageSalary()">Calculate Average Salary</button> <button
+            onclick="findEmployeesByDepartment('Marketing')">Find Employees in
+            Department</button>
+
+    </div>
+    <script>
+        function Employee(name, age, department, salary) {
+            this.name = name;
+            this.age = age;
+            this.department = department;
+            this.salary = salary;
+        }
+        let employees = [
+            new Employee("Ace", 30, "Marketing", 20000), new Employee("Casey", 35, "HR", 60000),
+            new Employee("Steve", 28, "IT", 30000),
+            new Employee("William", 32, "Marketing", 35000)
+        ];
+        function displayOutput(output) {
+            document.getElementById('output').innerHTML = output;
+        }
+        function calculateAverageSalary() {
+            let totalSalary = employees.reduce((acc, emp) => acc + emp.salary, 0); let averageSalary = totalSalary / employees.length; displayOutput(`Average Salary: Rs ${averageSalary.toFixed(2)}`);
+        }
+        function findEmployeesByDepartment(department) {
+            let filteredEmployees = employees.filter(emp => emp.department === department); displayOutput(`Employees in Coding: ${filteredEmployees.map(emp =>
+                emp.name).join(', ')}`);
+        }
+
+        function increaseSalary(percentage) {
+            employees.forEach(emp => {
+                emp.salary += emp.salary * (percentage / 100);
+            });
+            displayOutput('Salaries increased');
+        }
+
+        function sortEmployeesByAge() {
+            employees.sort((a, b) => a.age - b.age);
+            displayOutput(`Employees Sorted by Age: ${employees.map(emp => emp.name).join(',')}`);
+        }
+
+    </script>
+</body>
+
+</html>
